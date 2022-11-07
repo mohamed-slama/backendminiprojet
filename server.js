@@ -8,7 +8,8 @@ const passport = require("passport")
 
 const LocalStrategy = require("passport-local")
 const passportLocalMongoose = require("passport-local-mongoose")
-const { AsyncResource } = require("async_hooks")
+const { AsyncResource } = require("async_hooks");
+const { collection } = require("./models/user");
 const port = process.env.PORT || 9090;
 const databaseName = 'EasyWay';
 
@@ -26,9 +27,9 @@ app.use(bodyParser.urlencoded({extended:false}))
 //parse application /json
 
 app.use(bodyParser.json()) 
-mongoose
-  .connect(`mongodb://0.0.0.0:27017/${databaseName}`)
-  .then(() => {
+
+
+mongoose.connect(`mongodb://0.0.0.0:27017/${databaseName}`).then(() => {
     console.log(`Connected to ${databaseName}`);
   })
   .catch(err => {
@@ -54,6 +55,50 @@ mongoose
         });
     });
 }); */
+
+app.post('/signup',(req,res)=>   {
+
+        const newUser = {
+            username :  req.body.username , 
+            email :  req.body.email , 
+            password :  req.body.password , 
+        }
+
+        const query ={ email : newUser.email}  
+
+        collection.findOne(query , (err,result) => {
+            if (result == null ) {
+                collection.insertOne(newUser,(err,result)=> {
+                    res.status(200).send()
+                })
+            }else {
+                res.status(400).send()
+            }
+        })
+
+})
+
+
+app.post('/login' ,(req,res)=> {
+    const query = {
+        email : req.body.email ,
+        password : req.body.password 
+    }
+    collection.findOne(query , (err , result) => {
+        if(result != null ) {
+            const objToSend = {
+                username : result.username , 
+                email : result.email 
+            }
+            res.status(200).send(JSON.stringify(objToSend))
+        } else {
+            res.status(404).send()
+        }
+    })
+
+})
+
+
 
 app.get ('/users',async (req,res)=>{
 
