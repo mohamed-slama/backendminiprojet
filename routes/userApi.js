@@ -85,7 +85,6 @@ app.post("/signup", async (req, res) => {
         email,
         passwordHash,
       });
-  
       const savedUser = await newUser.save();
   
       const token = jwt.sign(
@@ -96,7 +95,17 @@ app.post("/signup", async (req, res) => {
       );
   
       // send the token in a HTTP-only cookie
-  
+      const query ={ email : newUser.email}  
+
+      collection.findOne(query , (err,result) => {
+          if (result == null ) {
+              collection.insertOne(newUser,(err,result)=> {
+                  res.status(200).send()
+              })
+          }else {
+              res.status(400).send()
+          }
+      })
       res
       .cookie("token", token, {
         httpOnly: true,
@@ -108,6 +117,11 @@ app.post("/signup", async (req, res) => {
     console.error(err);
     res.status(500).send();
   }
+
+
+
+
+
 });
 app.post("/login", async (req, res) => {
     try {
@@ -141,7 +155,6 @@ app.post("/login", async (req, res) => {
       );
   
       // send the token in a HTTP-only cookie
-  
       res
         .cookie("token", token, {
           httpOnly: true,
@@ -153,6 +166,22 @@ app.post("/login", async (req, res) => {
       console.error(err);
       res.status(500).send();
     }
+
+    const query = {
+      email : req.body.email ,
+      password : req.body.password 
+  }
+  collection.findOne(query , (err , result) => {
+      if(result != null ) {
+          const objToSend = {
+              username : result.username , 
+              email : result.email 
+          }
+          res.status(200).send(JSON.stringify(objToSend))
+      } else {
+          res.status(404).send()
+      }
+  })
   });
   app.get("/logout", (req, res) => {
     res
