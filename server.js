@@ -27,15 +27,9 @@ app.use(bodyParser.urlencoded({extended:false}))
 //parse application /json
 
 app.use(bodyParser.json()) 
-<<<<<<< Updated upstream
 
 
 mongoose.connect(`mongodb://0.0.0.0:27017/${databaseName}`).then(() => {
-=======
-mongoose
-  .connect(`mongodb://0.0.0.0:27017/${databaseName}`)
-  .then(() => {
->>>>>>> Stashed changes
     console.log(`Connected to ${databaseName}`);
   })
   .catch(err => {
