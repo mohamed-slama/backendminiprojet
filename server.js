@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({extended:false}))
 
 app.use(bodyParser.json()) 
 mongoose
-  .connect(`mongodb://localhost:27017/${databaseName}`)
+  .connect(`mongodb://0.0.0.0:27017/${databaseName}`)
   .then(() => {
     console.log(`Connected to ${databaseName}`);
   })
