@@ -1,5 +1,6 @@
 const express = require ("express") 
 const app = express()  
+const cors =require ("cors");
 const mongoose = require ("mongoose")
 const User = require ("./models/user")
 const bodyParser = require("body-parser")  
@@ -8,7 +9,8 @@ const passport = require("passport")
 const LocalStrategy = require("passport-local")
 const passportLocalMongoose = require("passport-local-mongoose")
 const { AsyncResource } = require("async_hooks")
-
+const port = process.env.PORT || 9090;
+const databaseName = 'EasyWay';
 
 /* 
 app.use(passport.initialize());
@@ -24,7 +26,16 @@ app.use(bodyParser.urlencoded({extended:false}))
 //parse application /json
 
 app.use(bodyParser.json()) 
+mongoose
+  .connect(`mongodb://localhost:27017/${databaseName}`)
+  .then(() => {
+    console.log(`Connected to ${databaseName}`);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
+  app.use(cors());
 
 //// routes 
 /* app.post("/register", function (req, res) {
@@ -102,17 +113,7 @@ app.put('/updateuser/:id' , async (req, res) => {
     }
 })
 
-mongoose.connect(
-    'mongodb+srv://mohamed:mohamed@cluster0.wz8qvqy.mongodb.net/MiniProjet?retryWrites=true&w=majority',(err,done)=>{
-    if (err) {
-        console.log(err) ; 
-
-    }
-    if(done){
-        console.log('data base connected') ; 
-    }
-})
-
-
-app.listen(3000, () => console.log ("serveur running"))   
+app.listen(port, () => {
+    console.log(`Server running at http://localhost:${port}/`);
+  });
 
