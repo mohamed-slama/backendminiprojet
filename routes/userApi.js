@@ -32,6 +32,13 @@ app.use(bodyParser.urlencoded({extended:false}))
 app.use(bodyParser.json()) 
 
 
+module.exports .uniqueEmail = function (email ) {
+  return new Promise(function(resolve,reject){
+    User.findOne({email:email})
+  })
+}
+ 
+
 mongoose.connect(`mongodb://0.0.0.0:27017/${databaseName}`).then(() => {
     console.log(`Connected to ${databaseName}`);
   })
@@ -58,7 +65,7 @@ mongoose.connect(`mongodb://0.0.0.0:27017/${databaseName}`).then(() => {
         });
     });
 }); */
-app.post("/signup", async (req, res) => {
+app.post("/signup",async (req, res) => {
     try {
       const { email, password } = req.body;
   
