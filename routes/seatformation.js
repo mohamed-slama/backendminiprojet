@@ -1,0 +1,28 @@
+import express from "express";
+
+import {
+    createseatformation,
+    updateseatformation,
+    deleteseatformation,
+    getseatformation,
+    getseatformations,
+
+} from "../controllers/seatformation.js"
+import {verifyAdmin} from "../utils/verifyToken.js";
+
+const router = express.Router();
+//CREATE
+router.post("/",  createseatformation);
+
+//UPDATE
+router.put("/:id", updateseatformation);
+//DELETE
+router.delete("/:id/:seatformationid", deleteseatformation);
+//GET
+
+router.get("/:id", getseatformation);
+//GET ALL
+
+router.get("/", getseatformations);
+
+export default router;
