@@ -8,7 +8,7 @@ const vehicleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  photos: {
+   /*photos: {
     type: [String],
   },
 
@@ -16,18 +16,18 @@ const vehicleSchema = new mongoose.Schema({
     type: Number,
     min: 0,
     max: 5,
-  },
+  },*/
   available : {
       type : [String ]
   } , 
-  cheapestPrice: {
+  /* cheapestPrice: {
     type: Number,
     required: true,
   },
-  featured: {
+ featured: {
     type: Boolean,
     default: false,
-  },
+  },*/
   gridformationid : {
     type : String 
   }
