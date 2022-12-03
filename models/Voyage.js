@@ -17,7 +17,7 @@ const seatSchema = new mongoose.Schema(
     },
 
     DepartureDate : {
-        type : String
+        type : Date
     } , 
 
     ArrivalDate : {

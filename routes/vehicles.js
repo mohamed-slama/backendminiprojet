@@ -7,7 +7,7 @@ import {
   getvehicle,
   getvehicleseats,
   getvehicles,
-  updatevehicle,getvehiculesByType
+  updatevehicle,
 } from "../controllers/vehicle.js";
 import vehicle from "../models/vehicle.js";
 import {verifyAdmin} from "../utils/verifyToken.js"
@@ -23,7 +23,6 @@ router.delete("/:id", verifyAdmin, deletevehicle);
 //GET
 
 router.get("/find/:id", getvehicle);
-router.get("/find/vehicules",getvehiculesByType);
 //GET ALL
 
 router.get("/", getvehicles);

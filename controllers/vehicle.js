@@ -51,22 +51,7 @@ export const getvehicles = async (req, res, next) => { //To Do Filter by
     next(err);
   }
 };
-export const getvehiculesByType = async (req, res, next) => {  //Todo filter 
-  try {
-    var vehicle
-   
-    if(req.body.type=="all")
-    {  
-      vehicle = await vehicle.find().where("voyage.depart");
-    }else{
-      
-    }
 
-    res.status(200).json(vehicle);
-  } catch (err) {
-    next(err);
-  }
-};
 
 export const countByCity = async (req, res, next) => {
   const cities = req.query.cities.split(",");

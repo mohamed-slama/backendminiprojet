@@ -6,13 +6,18 @@ import seatformationRoute from "./routes/seatformation.js"
 import usersRoute from "./routes/users.js";
 import vehiclesRoute from "./routes/vehicles.js";
 import seatsRoute from "./routes/seats.js";
+import voyageroute from "./routes/voyage.js"
 import cookieParser from "cookie-parser";
+import dateFormat from "dateformat"
+import dayjs from "dayjs"
 import cors from "cors";
+import ISODate from "isodate" ; 
+
 
 const app = express();
 dotenv.config();
-
-const connect = async () => {
+export const day= dayjs(new Date ).format('YYYY-MM-DDThh:mm:ss.00Z') ;
+export const connect = async () => {
   try {
     await mongoose.connect(process.env.MONGO);
     console.log("Connected to mongoDB.");
@@ -35,6 +40,7 @@ app.use("/api/users", usersRoute);
 app.use("/api/vehicles", vehiclesRoute);
 app.use("/api/seats", seatsRoute);
 app.use("/api/seatformation",seatformationRoute );
+app.use("/api/voyage",voyageroute );
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
@@ -49,5 +55,5 @@ app.use((err, req, res, next) => {
 
 app.listen(8800, () => {
   connect();
-  console.log("Connected to backend.");
+  console.log("Connected to backend.",ISODate(new Date ) , Date.now()  );
 });
