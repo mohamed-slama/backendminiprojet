@@ -55,5 +55,5 @@ app.use((err, req, res, next) => {
 
 app.listen(8800, () => {
   connect();
-  console.log("Connected to backend.",ISODate(new Date ) , Date.now()  );
+  console.log("Connected to backend.",ISODate(new Date ) , new Date().getTime()  );
 });
