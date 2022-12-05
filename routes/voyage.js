@@ -21,6 +21,6 @@ router.get("/find/:id", getvoyage);
 
 //GET ALL
 
-router.get("/allvoyages", getAll);
+router.get("/allvoyages/:type/:DeparturePoint/:ArrivalPoint", getAll);
 
 export default router;

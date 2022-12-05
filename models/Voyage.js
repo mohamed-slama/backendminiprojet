@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 const seatSchema = new mongoose.Schema(
   {
   
-    vehicle :[ {
+    vehicle : {
         type : mongoose.Schema.Types.ObjectId , 
         ref : "vehicle" , 
     }
-    ]  ,
+    ,
     DeparturePoint : {
         type : String
 

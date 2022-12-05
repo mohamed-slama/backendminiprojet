@@ -49,9 +49,9 @@ const test = Date.now() ;
    console.log(req.body.type)  ; 
    
     const voy = await voyage.find({})
-    .where('DeparturePoint' ).equals(req.body.DeparturePoint)
-    .where('ArrivalPoint' ).equals(req.body.ArrivalPoint)  
-    .where( {  'DepartureDate' : { $gte : test }})
+    .where('DeparturePoint' ).equals(req.params.DeparturePoint)
+    .where('ArrivalPoint' ).equals(req.params.ArrivalPoint)  
+    .where( {'DepartureDate' : { $gte : test }})
     .populate("vehicle")
     .exec()
     .then((voy) => {
