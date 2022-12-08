@@ -40,12 +40,16 @@ export const login = async (req, res, next) => {
     );
 
     const { password, ...otherDetails } = user._doc;
+    const userr=user._doc;
+    var data = {
+       data:user,token
+    };
     res
       .cookie("access_token", token, {
         httpOnly: true,
       })
       .status(200)
-      .json({ details: { ...otherDetails } });
+      .json( data );
   } catch (err) {
     next(err);
   }
