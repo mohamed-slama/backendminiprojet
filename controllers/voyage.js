@@ -42,12 +42,11 @@ export const getvoyage = async (req, res, next) => {
 };
 export const getAll = async (req, res, next) => {
 
-const test = Date.now() ;
-
-  if  (req.body.type=="all") 
+const test = Date.now() ; 
+  if  (req.params.type=="all") 
   {
-   console.log(req.body.type)  ; 
-   
+    
+    console.log("aaaaaaaaa")  ;
     const voy = await voyage.find({})
     .where('DeparturePoint' ).equals(req.params.DeparturePoint)
     .where('ArrivalPoint' ).equals(req.params.ArrivalPoint)  
@@ -62,7 +61,7 @@ const test = Date.now() ;
       res.status(500).json({ error: err });
     });
   } else  { 
-    voyage.find({})
+    voyage.find({}) 
     .populate("vehicle")
     .then((voy) => {
       res.status(200).json(voy);

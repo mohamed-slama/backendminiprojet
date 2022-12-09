@@ -4,32 +4,23 @@ const reservationSchema = new mongoose.Schema(
   
     user : {
         type : mongoose.Schema.Types.ObjectId , 
-        ref : "user" , 
+        ref : "User" , 
     }
     ,
     Seatnumbers : {
-        type : [String]
+        type : [Number]
 
     } , 
-    ArrivalPoint : { 
-        type : String
-
-    },
-
-    DepartureDate : {
-        type : Date
+    voyage : {
+        type : mongoose.Schema.Types.ObjectId ,
+        ref: "voyage" 
     } , 
-
-    ArrivalDate : {
+    qr : {
         type : String 
     } , 
-
-    Distance : {
-        type : Number
-    } , 
-
-
-
+    totaleprice : {
+        type : Number 
+    }
 
   },
 

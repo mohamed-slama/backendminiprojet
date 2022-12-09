@@ -7,6 +7,7 @@ import usersRoute from "./routes/users.js";
 import vehiclesRoute from "./routes/vehicles.js";
 import seatsRoute from "./routes/seats.js";
 import voyageroute from "./routes/voyage.js"
+import reservationroute from "./routes/reservation.js"
 import cookieParser from "cookie-parser";
 import dateFormat from "dateformat"
 import dayjs from "dayjs"
@@ -41,6 +42,7 @@ app.use("/api/vehicles", vehiclesRoute);
 app.use("/api/seats", seatsRoute);
 app.use("/api/seatformation",seatformationRoute );
 app.use("/api/voyage",voyageroute );
+app.use("/api/reservation",reservationroute );
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;

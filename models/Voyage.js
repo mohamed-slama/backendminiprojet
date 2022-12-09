@@ -27,11 +27,18 @@ const seatSchema = new mongoose.Schema(
     Distance : {
         type : Number
     } , 
-
-
-
-
-  },
+    firstclassseatprice : {
+        type : Number
+    } ,
+    economyseatprice : {
+        type : Number
+    } ,
+    businessseatprice : {
+        type : Number
+    } ,  available : {
+        type : [Boolean]
+    } 
+  }
 
 );
 
