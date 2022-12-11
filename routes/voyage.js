@@ -18,9 +18,8 @@ router.delete("/:id",  deletevoyage);
 //GET
 
 router.get("/find/:id", getvoyage);
-
 //GET ALL
 //             /DepartureDate=1670241415506
-router.get("/allvoyages/:type/:DeparturePoint/:ArrivalPoint/:DepartureDate", getAll);
+router.get("/allvoyages/:type/:DeparturePoint/:ArrivalPoint", getAll);
 
 export default router;
