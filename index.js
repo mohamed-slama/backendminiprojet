@@ -9,7 +9,7 @@ import seatsRoute from "./routes/seats.js";
 import voyageroute from "./routes/voyage.js"
 import reservationroute from "./routes/reservation.js"
 import cookieParser from "cookie-parser";
-import dateFormat from "dateformat"
+import payementroute from "./routes/payement.js"
 import dayjs from "dayjs"
 import cors from "cors";
 import ISODate from "isodate" ; 
@@ -31,6 +31,12 @@ mongoose.connection.on("disconnected", () => {
   console.log("mongoDB disconnected!");
 });
 
+
+
+
+
+
+
 //middlewares
 app.use(cors())
 app.use(cookieParser())
@@ -43,6 +49,7 @@ app.use("/api/seats", seatsRoute);
 app.use("/api/seatformation",seatformationRoute );
 app.use("/api/voyage",voyageroute );
 app.use("/api/reservation",reservationroute );
+app.use("/api/payement",payementroute );
 
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
