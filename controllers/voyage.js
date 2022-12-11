@@ -45,8 +45,6 @@ export const getAll = async (req, res, next) => {
 const test = Date.now() ; 
   if  (req.params.type=="all") 
   {
-    
-    console.log("aaaaaaaaa")  ;
     const voy = await voyage.find({})
     .where('DeparturePoint' ).equals(req.params.DeparturePoint)
     .where('ArrivalPoint' ).equals(req.params.ArrivalPoint)  
