@@ -6,6 +6,6 @@ const router = express.Router();
 
 //payement
 
-router.get("/payment-sheet",payement);
+router.get("/payment-sheet/:amount",payement);
 
 export default router;

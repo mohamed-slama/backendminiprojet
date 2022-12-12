@@ -11,18 +11,18 @@ const stripe = new Stripe (
 export const payement = async (req, res) => {
   // Use an existing Customer ID if this is a returning customer.
 
-  //const newreservation = new reservation(req.body);
+ // const newreservation = new reservation(req.body);
 
- // var payement = await newreservation.findById(req.params.id);
+  //var payement = await newreservation.findById(req.params.id);
 
   const customer = await stripe.customers.create();
   const ephemeralKey = await stripe.ephemeralKeys.create(
     { customer: customer.id },
     { apiVersion: "2020-08-27" }
   );
-
+  var amount_number = Math.round(req.params.amount*100) 
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: 1099,
+    amount:amount_number,
     currency: "eur",
     customer: customer.id,
     automatic_payment_methods: {
