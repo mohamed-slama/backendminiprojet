@@ -26,3 +26,6 @@ router.get("/:id", getseatformation);
 router.get("/", getseatformations);
 
 export default router;
+
+
+//cus_MxkG2fgPmlPQ1d

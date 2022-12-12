@@ -15,40 +15,48 @@ const QrGenrate = async (text) => {
 
 export const createreservation = async (req, res, next) => {
   const newreservation = new reservation(req.body);
-
+  var list = [];
   try {
-
 
     //console.log(savedreservation)
     var updatevoyage = await voyage.findById(req.body.voyage);
-    // console.log(updatevoyage)
+   // console.log(updatevoyage)
     for (const index2 in newreservation.Seatnumbers) {
-      //console.log(savedreservation.Seatnumbers)  ;
-      for (const index in updatevoyage.available) {
-        //console.log(updatevoyage.available)  ;
+     console.log(newreservation.Seatnumbers[index2])  ;
+      for (const index in updatevoyage.available ) {
+        console.log(updatevoyage.available[index])  ;
         if (newreservation.Seatnumbers[index2] == index) {
+          console.log(newreservation.Seatnumbers[index2])
           if (updatevoyage.available[index] == true) {
             return res.status(200).json("already reserved");
           } else {
-            const savedreservation = await newreservation.save();
-            let stJSON = JSON.stringify(savedreservation);
+          await newreservation.save();
+            list.push(newreservation)
+            let stJSON = JSON.stringify(newreservation);
             QRCode.toDataURL(stJSON, async function (err, code) {
               if (err) return console.log("error");
-              const update = await reservation.findOneAndUpdate({ qr: code });
-              console.log(update);
-              console.log(code);
+              const update = await reservation.findByIdAndUpdate(newreservation._id, {qr:code});
+              //console.log(update);
+              //console.log(savedreservation._id)
+              //console.log(code);
             });
+
             updatevoyage.available[index] = true;
-            const newvoyage = new voyage(updatevoyage);
-            const updatedV = await newvoyage.save();
-            res.status(200).json(savedreservation);
+            updatevoyage.save();
+            console.log(updatevoyage.available)  ;
+
+            //const newvoyage = new voyage(updatevoyage);
+            //const updatedV = await newvoyage.save();
+           
           }
         }
       }
     }
+    return res.status(200).json(list);
   } catch (err) {
     next(err);
   }
+  
 };
 
 export const updatereservation = async (req, res, next) => {
