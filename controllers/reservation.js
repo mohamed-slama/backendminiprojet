@@ -30,12 +30,12 @@ export const createreservation = async (req, res, next) => {
           if (updatevoyage.available[index] == true) {
             return res.status(200).json("already reserved");
           } else {
-          await newreservation.save();
+         var savedreservation = await newreservation.save();
             list.push(newreservation)
-            let stJSON = JSON.stringify(newreservation);
+            let stJSON = JSON.stringify(savedreservation);
             QRCode.toDataURL(stJSON, async function (err, code) {
               if (err) return console.log("error");
-              const update = await reservation.findByIdAndUpdate(newreservation._id, {qr:code});
+              const update = await reservation.findByIdAndUpdate(savedreservation._id, {qr:code});
               //console.log(update);
               //console.log(savedreservation._id)
               //console.log(code);
@@ -52,7 +52,7 @@ export const createreservation = async (req, res, next) => {
         }
       }
     }
-    return res.status(200).json(list);
+    return res.status(200).json(savedreservation);
   } catch (err) {
     next(err);
   }
