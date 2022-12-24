@@ -4,13 +4,13 @@ const reservationSchema = new mongoose.Schema(
   
     user : {
         type : mongoose.Schema.Types.ObjectId , 
-        ref : "User" , 
+        ref : "User"  
     }
     ,
-    Seatnumbers : {
-        type : [Number]
-
-    } , 
+    Seatnumbers :{ 
+         type :[Number] 
+     } 
+    , 
     voyage : {
         type : mongoose.Schema.Types.ObjectId ,
         ref: "voyage" 
@@ -22,7 +22,7 @@ const reservationSchema = new mongoose.Schema(
         type : Number 
     }
 
-  },
+  }
 
 );
 

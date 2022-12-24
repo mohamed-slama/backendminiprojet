@@ -5,8 +5,7 @@ import {
   getreservation,
   getAll
 } from "../controllers/reservation.js";
-import reservation from "../models/reservation.js";
-import {verifyAdmin} from "../utils/verifyToken.js"
+
 const router = express.Router();
 
 //CREATE
@@ -20,7 +19,7 @@ router.delete("/:id",  deletereservation);
 router.get("/find/:id", getreservation);
 
 //GET ALL
-//             /DepartureDate=1670241415506
-router.get("/allreservations", getAll);
+//           
+router.get("/allreservations/:user_id", getAll);
 
 export default router;

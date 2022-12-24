@@ -4,17 +4,12 @@ import { getvoyage } from "./voyage.js";
 import voyage from "../models/voyage.js";
 import QRCode from "qrcode";
 
-const QrGenrate = async (text) => {
-  try {
-    const qr = await QRCode.toDataURL(text);
-    console.log(qr);
-  } catch (err) {
-    console.log(err);
-  }
-};
+
 
 export const createreservation = async (req, res, next) => {
-  const newreservation = new reservation(req.body);
+  const newreservation = new reservation({Seatnumbers:req.body.Seatnumbers
+    ,user:req.body.user
+    ,voyage:req.body.voyage,totaleprice:req.body.totaleprice});
   var list = [];
   try {
 
@@ -28,7 +23,7 @@ export const createreservation = async (req, res, next) => {
         if (newreservation.Seatnumbers[index2] == index) {
           console.log(newreservation.Seatnumbers[index2])
           if (updatevoyage.available[index] == true) {
-            return res.status(200).json("already reserved");
+            console.log("already reserved")  ;
           } else {
          var savedreservation = await newreservation.save();
             list.push(newreservation)
@@ -80,7 +75,8 @@ export const deletereservation = async (req, res, next) => {
   }
 };
 export const getreservation = async (req, res, next) => {
-  const reservation = await reservation
+  console.log(req.params.id)
+  const reservations = await reservation
     .findById(req.params.id)
     .populate("user")
     .populate({
@@ -91,8 +87,8 @@ export const getreservation = async (req, res, next) => {
       },
     })
     .exec()
-    .then((voy) => {
-      res.status(200).json(voy);
+    .then((reservations) => {
+    return res.status(200).json(reservations);
     })
     .catch((err) => {
       console.log(err);
@@ -103,8 +99,8 @@ export const getAll = async (req, res, next) => {
   console.log("aaaaaaaaa");
   const voy = await reservation
     .find({})
+    .where('user').equals(req.params.user_id)
     .populate("user")
-
     .populate({
       path: "voyage",
       populate: {
