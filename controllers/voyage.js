@@ -60,6 +60,11 @@ const test = Date.now() ;
     });
   } else  { 
     voyage.find({}) 
+    .where('DeparturePoint' ).equals(req.params.DeparturePoint)
+    .where('ArrivalPoint' ).equals(req.params.ArrivalPoint)  
+    .where('ArrivalPoint' ).equals(req.params.ArrivalPoint)  
+    .where('vehicle.type' ).equals(req.params.type)  
+    .where( {'DepartureDate' : { $gte : test }})
     .populate("vehicle")
     .then((voy) => {
       res.status(200).json(voy);

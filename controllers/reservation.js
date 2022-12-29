@@ -28,18 +28,12 @@ export const createreservation = async (req, res, next) => {
          var savedreservation = await newreservation.save();
             list.push(newreservation)
             let stJSON = JSON.stringify(savedreservation);
-            QRCode.toDataURL(stJSON, async function (err, code) {
-              if (err) return console.log("error");
-              const update = await reservation.findByIdAndUpdate(savedreservation._id, {qr:code});
+              const update = await reservation.findByIdAndUpdate(savedreservation._id, {qr:stJSON});
               //console.log(update);
               //console.log(savedreservation._id)
-              //console.log(code);
-            });
-
             updatevoyage.available[index] = true;
             updatevoyage.save();
             console.log(updatevoyage.available)  ;
-
             //const newvoyage = new voyage(updatevoyage);
             //const updatedV = await newvoyage.save();
            
@@ -117,3 +111,15 @@ export const getAll = async (req, res, next) => {
       res.status(500).json({ error: err });
     });
 };
+
+function encode_base64(code) {
+return  Buffer.from(code, 'utf8').toString('base64')
+}
+
+// from base64 to actual image 
+function base64_decode(base64Image, file) {
+  const buffer = Buffer.from(base64Image,"base64");
+  fs.writeFileSync(file,buffer);
+   console.log('******** File created from base64 encoded string ********');
+
+}
